@@ -1,15 +1,24 @@
 import React from "react"; 
 
-import './bootstrap';
-import '../css/app.css';
 
 import { createRoot } from 'react-dom/client';
+import './App.scss';
+import Header from './Components/Header';
+import Notification from './Components/Notification';
 
+function App() {
+  
+  return (
+    <div className="App">
+    
+        <Header />
+      
+      <main>
+        <Notification/> 
 
-function App(){
-    return(
-        "hello"
-    )
+      </main>
+    </div>
+  );
 }
 
 const container = document.getElementById('app');

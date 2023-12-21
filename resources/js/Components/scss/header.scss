@@ -1,0 +1,51 @@
+@import "../../App.scss";
+
+header{
+    margin: 2% 4%;
+    display: flex;
+    flex: 1 100%;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+
+         .notification{
+
+            h1{
+                display: flex;
+            flex: 0 50%;
+            flex-flow: row nowrap;
+            justify-content: flex-start;
+
+            }
+            
+            span{
+                margin: 0 3%;
+                padding: 0 6%;
+                background-color: $Blue;
+                color: $White;
+                border-radius: 10px;
+            }
+         }
+         .markAsRead{
+            color: $Dark-grayish-blue;
+            font-family: "Medium";
+            font-size: 1.3rem;
+            cursor: pointer;
+         }
+         .markAsRead:hover{
+            color: $Blue;
+
+         }
+}
+
+@media all and (max-width:  480px)  {
+   header{
+      .notification{
+         h1{
+            font-size: 1.7rem;
+         }
+      }
+
+   }
+
+}
