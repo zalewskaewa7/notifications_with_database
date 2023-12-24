@@ -12,21 +12,18 @@ $Very-dark-blue: hsl(224, 21%, 14%);
 
 @font-face {
   font-family: "ExtraBold";
-  src: local("ExtraBold"),
-   url("./Components/assets/fonts/static/PlusJakartaSans-ExtraBold.ttf") format("truetype");
+  src: url("/assets/fonts/static/PlusJakartaSans-ExtraBold.ttf") format("truetype");
   
  }
  @font-face {
   font-family: "Medium";
-  src: local("Medium"),
-   url("./Components/assets/fonts/static/PlusJakartaSans-Medium.ttf")
+  src: url("/assets/fonts/static/PlusJakartaSans-Medium.ttf")
    format("truetype");
   
  }
  @font-face {
   font-family: "VariableFont";
-  src: local("VariableFont"),
-   url("./Components/assets/fonts/PlusJakartaSans-VariableFont_wght.ttf")
+  src: url("/assets/fonts/PlusJakartaSans-VariableFont_wght.ttf")
    format("truetype");
   
  }

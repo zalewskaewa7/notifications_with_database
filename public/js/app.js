@@ -242,10 +242,14 @@ var markAsReaded = slice.actions.markAsReaded;
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
-/* harmony import */ var _App_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./App.scss */ "./resources/js/App.scss");
-/* harmony import */ var _Components_Header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Components/Header */ "./resources/js/Components/Header.js");
-/* harmony import */ var _Components_Notification__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Components/Notification */ "./resources/js/Components/Notification.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+/* harmony import */ var _src_app_redux_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./src/app/redux/store */ "./resources/js/src/app/redux/store.js");
+/* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
+/* harmony import */ var _App_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./App.scss */ "./resources/js/App.scss");
+/* harmony import */ var _Components_Header__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Components/Header */ "./resources/js/Components/Header.js");
+/* harmony import */ var _Components_Notification__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Components/Notification */ "./resources/js/Components/Notification.js");
+
+
 
 
 
@@ -254,11 +258,161 @@ __webpack_require__.r(__webpack_exports__);
 function App() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "App"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Header__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("main", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notification__WEBPACK_IMPORTED_MODULE_4__["default"], null)));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Header__WEBPACK_IMPORTED_MODULE_4__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("main", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notification__WEBPACK_IMPORTED_MODULE_5__["default"], null)));
 }
 var container = document.getElementById('app');
-var root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot)(container);
-root.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(App, null));
+var root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_2__.createRoot)(container);
+// root.render(<App />);
+root.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_redux__WEBPACK_IMPORTED_MODULE_6__.Provider, {
+  store: _src_app_redux_store__WEBPACK_IMPORTED_MODULE_1__.store
+}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(App, null)));
+
+/***/ }),
+
+/***/ "./resources/js/src/app/redux/slice.js":
+/*!*********************************************!*\
+  !*** ./resources/js/src/app/redux/slice.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   initialState: () => (/* binding */ initialState),
+/* harmony export */   markAsReaded: () => (/* binding */ markAsReaded),
+/* harmony export */   slice: () => (/* binding */ slice)
+/* harmony export */ });
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs");
+/* harmony import */ var _components_assets_images_avatar_mark_webber_webp__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/assets/images/avatar-mark-webber.webp */ "./resources/js/src/components/assets/images/avatar-mark-webber.webp");
+/* harmony import */ var _components_assets_images_avatar_angela_gray_webp__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/assets/images/avatar-angela-gray.webp */ "./resources/js/src/components/assets/images/avatar-angela-gray.webp");
+/* harmony import */ var _components_assets_images_avatar_jacob_thompson_webp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/assets/images/avatar-jacob-thompson.webp */ "./resources/js/src/components/assets/images/avatar-jacob-thompson.webp");
+/* harmony import */ var _components_assets_images_avatar_rizky_hasanuddin_webp__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/assets/images/avatar-rizky-hasanuddin.webp */ "./resources/js/src/components/assets/images/avatar-rizky-hasanuddin.webp");
+/* harmony import */ var _components_assets_images_avatar_kimberly_smith_webp__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/assets/images/avatar-kimberly-smith.webp */ "./resources/js/src/components/assets/images/avatar-kimberly-smith.webp");
+/* harmony import */ var _components_assets_images_avatar_nathan_peterson_webp__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/assets/images/avatar-nathan-peterson.webp */ "./resources/js/src/components/assets/images/avatar-nathan-peterson.webp");
+/* harmony import */ var _components_assets_images_avatar_anna_kim_webp__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../components/assets/images/avatar-anna-kim.webp */ "./resources/js/src/components/assets/images/avatar-anna-kim.webp");
+/* harmony import */ var _components_assets_images_image_chess_webp__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../components/assets/images/image-chess.webp */ "./resources/js/src/components/assets/images/image-chess.webp");
+
+
+
+
+
+
+
+
+
+var initialState = {
+  notifications: [{
+    avatarSrc: _components_assets_images_avatar_mark_webber_webp__WEBPACK_IMPORTED_MODULE_0__["default"],
+    autor: "Mark Webber",
+    reaction: "reacted to your recent post",
+    postTitle: "My first tournament today!",
+    group: "",
+    message: "",
+    commentedPicture: "",
+    data: "1m ago",
+    ifRead: false
+  }, {
+    avatarSrc: _components_assets_images_avatar_angela_gray_webp__WEBPACK_IMPORTED_MODULE_1__["default"],
+    autor: "Angela Gray",
+    reaction: "followed you",
+    postTitle: "",
+    group: "",
+    message: "",
+    commentedPicture: "",
+    data: "5m ago",
+    ifRead: false
+  }, {
+    avatarSrc: _components_assets_images_avatar_jacob_thompson_webp__WEBPACK_IMPORTED_MODULE_2__["default"],
+    autor: "Jacob Thompson",
+    reaction: "has joined your group",
+    postTitle: "",
+    group: "Chess Club",
+    message: "",
+    commentedPicture: "",
+    data: "1 day ago",
+    ifRead: false
+  }, {
+    avatarSrc: _components_assets_images_avatar_rizky_hasanuddin_webp__WEBPACK_IMPORTED_MODULE_3__["default"],
+    autor: "Rizky Hasanuddin",
+    reaction: "sent you a private message",
+    postTitle: "",
+    group: "",
+    message: "Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and I'm already having lots of fun and improving my game.",
+    commentedPicture: "",
+    data: "5 days ago",
+    ifRead: true
+  }, {
+    avatarSrc: _components_assets_images_avatar_kimberly_smith_webp__WEBPACK_IMPORTED_MODULE_4__["default"],
+    autor: "Kimberly Smith",
+    reaction: "commented on your picture",
+    postTitle: "",
+    group: "",
+    message: "",
+    commentedPicture: _components_assets_images_image_chess_webp__WEBPACK_IMPORTED_MODULE_7__["default"],
+    data: "1 week ago",
+    ifRead: true
+  }, {
+    avatarSrc: _components_assets_images_avatar_nathan_peterson_webp__WEBPACK_IMPORTED_MODULE_5__["default"],
+    autor: "Nathan Peterson",
+    reaction: "reacted to your recent post",
+    postTitle: "5 end-game strategies to increase your win rate",
+    group: "",
+    message: "",
+    commentedPicture: "",
+    data: "2 weeks ago",
+    ifRead: true
+  }, {
+    avatarSrc: _components_assets_images_avatar_anna_kim_webp__WEBPACK_IMPORTED_MODULE_6__["default"],
+    autor: "Anna Kim",
+    reaction: "left the group",
+    postTitle: "",
+    group: "Chess Club",
+    message: "",
+    commentedPicture: "",
+    data: "2 weeks ago",
+    ifRead: true
+  }],
+  notReaded: 3
+};
+var slice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_8__.createSlice)({
+  name: "readed",
+  initialState: initialState,
+  reducers: {
+    markAsReaded: function markAsReaded(state, action) {
+      state.notifications.map(function (x) {
+        return x.ifRead = true;
+      });
+      state.notReaded = 0;
+    }
+  }
+});
+var markAsReaded = slice.actions.markAsReaded;
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (slice.reducer);
+
+/***/ }),
+
+/***/ "./resources/js/src/app/redux/store.js":
+/*!*********************************************!*\
+  !*** ./resources/js/src/app/redux/store.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   store: () => (/* binding */ store)
+/* harmony export */ });
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs");
+/* harmony import */ var _slice__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./slice */ "./resources/js/src/app/redux/slice.js");
+
+
+var store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.configureStore)({
+  reducer: {
+    readed: _slice__WEBPACK_IMPORTED_MODULE_0__["default"]
+  }
+});
 
 /***/ }),
 
@@ -275,23 +429,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/getUrl.js */ "./node_modules/css-loader/dist/runtime/getUrl.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Components_assets_fonts_static_PlusJakartaSans_ExtraBold_ttf__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Components/assets/fonts/static/PlusJakartaSans-ExtraBold.ttf */ "./resources/js/Components/assets/fonts/static/PlusJakartaSans-ExtraBold.ttf");
-/* harmony import */ var _Components_assets_fonts_static_PlusJakartaSans_Medium_ttf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Components/assets/fonts/static/PlusJakartaSans-Medium.ttf */ "./resources/js/Components/assets/fonts/static/PlusJakartaSans-Medium.ttf");
-/* harmony import */ var _Components_assets_fonts_PlusJakartaSans_VariableFont_wght_ttf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Components/assets/fonts/PlusJakartaSans-VariableFont_wght.ttf */ "./resources/js/Components/assets/fonts/PlusJakartaSans-VariableFont_wght.ttf");
 // Imports
 
-
-
-
-
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_Components_assets_fonts_static_PlusJakartaSans_ExtraBold_ttf__WEBPACK_IMPORTED_MODULE_2__["default"]);
-var ___CSS_LOADER_URL_REPLACEMENT_1___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_Components_assets_fonts_static_PlusJakartaSans_Medium_ttf__WEBPACK_IMPORTED_MODULE_3__["default"]);
-var ___CSS_LOADER_URL_REPLACEMENT_2___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_Components_assets_fonts_PlusJakartaSans_VariableFont_wght_ttf__WEBPACK_IMPORTED_MODULE_4__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@font-face {\n  font-family: \"ExtraBold\";\n  src: local(\"ExtraBold\"), url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ") format(\"truetype\");\n}\n@font-face {\n  font-family: \"Medium\";\n  src: local(\"Medium\"), url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ") format(\"truetype\");\n}\n@font-face {\n  font-family: \"VariableFont\";\n  src: local(\"VariableFont\"), url(" + ___CSS_LOADER_URL_REPLACEMENT_2___ + ") format(\"truetype\");\n}\n.App {\n  text-align: center;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@font-face {\n  font-family: \"ExtraBold\";\n  src: url(\"/assets/fonts/static/PlusJakartaSans-ExtraBold.ttf\") format(\"truetype\");\n}\n@font-face {\n  font-family: \"Medium\";\n  src: url(\"/assets/fonts/static/PlusJakartaSans-Medium.ttf\") format(\"truetype\");\n}\n@font-face {\n  font-family: \"VariableFont\";\n  src: url(\"/assets/fonts/PlusJakartaSans-VariableFont_wght.ttf\") format(\"truetype\");\n}\n.App {\n  text-align: center;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -302,9 +444,23 @@ ___CSS_LOADER_EXPORT___.push([module.id, "@font-face {\n  font-family: \"ExtraBo
 /*!****************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./resources/js/Components/scss/header.scss ***!
   \****************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ (() => {
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
 
-throw new Error("Module build failed (from ./node_modules/css-loader/dist/cjs.js):\nError: Can't resolve './Components/assets/fonts/PlusJakartaSans-VariableFont_wght.ttf' in 'C:\\xampp\\htdocs\\Laravel-React\\notifications\\resources\\js\\Components\\scss'\n    at finishWithoutResolve (C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\Resolver.js:369:18)\n    at C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\Resolver.js:461:15\n    at C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\Resolver.js:519:5\n    at eval (eval at create (C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:16:1)\n    at C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\Resolver.js:519:5\n    at eval (eval at create (C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:27:1)\n    at C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\DescriptionFilePlugin.js:89:43\n    at C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\Resolver.js:519:5\n    at eval (eval at create (C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:15:1)\n    at C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\Resolver.js:519:5\n    at eval (eval at create (C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:16:1)\n    at C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\Resolver.js:519:5\n    at eval (eval at create (C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:16:1)\n    at C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\Resolver.js:519:5\n    at eval (eval at create (C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:27:1)\n    at C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\DescriptionFilePlugin.js:89:43\n    at C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\Resolver.js:519:5\n    at eval (eval at create (C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:16:1)\n    at C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\Resolver.js:519:5\n    at eval (eval at create (C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:15:1)\n    at C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\DirectoryExistsPlugin.js:41:15\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "@font-face {\n  font-family: \"ExtraBold\";\n  src: url(\"/assets/fonts/static/PlusJakartaSans-ExtraBold.ttf\") format(\"truetype\");\n}\n@font-face {\n  font-family: \"Medium\";\n  src: url(\"/assets/fonts/static/PlusJakartaSans-Medium.ttf\") format(\"truetype\");\n}\n@font-face {\n  font-family: \"VariableFont\";\n  src: url(\"/assets/fonts/PlusJakartaSans-VariableFont_wght.ttf\") format(\"truetype\");\n}\n.App {\n  text-align: center;\n}\n\nheader {\n  margin: 2% 4%;\n  display: flex;\n  flex: 1 100%;\n  flex-flow: row wrap;\n  justify-content: space-between;\n  align-items: center;\n}\nheader .notification h1 {\n  display: flex;\n  flex: 0 50%;\n  flex-flow: row nowrap;\n  justify-content: flex-start;\n}\nheader .notification span {\n  margin: 0 3%;\n  padding: 0 6%;\n  background-color: hsl(219, 85%, 26%);\n  color: hsl(0, 0%, 100%);\n  border-radius: 10px;\n}\nheader .markAsRead {\n  color: hsl(219, 12%, 42%);\n  font-family: \"Medium\";\n  font-size: 1.3rem;\n  cursor: pointer;\n}\nheader .markAsRead:hover {\n  color: hsl(219, 85%, 26%);\n}\n\n@media all and (max-width: 480px) {\n  header .notification h1 {\n    font-size: 1.7rem;\n  }\n}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
 
 /***/ }),
 
@@ -312,9 +468,23 @@ throw new Error("Module build failed (from ./node_modules/css-loader/dist/cjs.js
 /*!**********************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./resources/js/Components/scss/notification.scss ***!
   \**********************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ (() => {
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
 
-throw new Error("Module build failed (from ./node_modules/css-loader/dist/cjs.js):\nError: Can't resolve './Components/assets/fonts/PlusJakartaSans-VariableFont_wght.ttf' in 'C:\\xampp\\htdocs\\Laravel-React\\notifications\\resources\\js\\Components\\scss'\n    at finishWithoutResolve (C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\Resolver.js:369:18)\n    at C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\Resolver.js:461:15\n    at C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\Resolver.js:519:5\n    at eval (eval at create (C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:16:1)\n    at C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\Resolver.js:519:5\n    at eval (eval at create (C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:27:1)\n    at C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\DescriptionFilePlugin.js:89:43\n    at C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\Resolver.js:519:5\n    at eval (eval at create (C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:15:1)\n    at C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\Resolver.js:519:5\n    at eval (eval at create (C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:16:1)\n    at C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\Resolver.js:519:5\n    at eval (eval at create (C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:16:1)\n    at C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\Resolver.js:519:5\n    at eval (eval at create (C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:27:1)\n    at C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\DescriptionFilePlugin.js:89:43\n    at C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\Resolver.js:519:5\n    at eval (eval at create (C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:16:1)\n    at C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\Resolver.js:519:5\n    at eval (eval at create (C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:15:1)\n    at C:\\xampp\\htdocs\\Laravel-React\\notifications\\node_modules\\enhanced-resolve\\lib\\DirectoryExistsPlugin.js:41:15\n    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "@font-face {\n  font-family: \"ExtraBold\";\n  src: url(\"/assets/fonts/static/PlusJakartaSans-ExtraBold.ttf\") format(\"truetype\");\n}\n@font-face {\n  font-family: \"Medium\";\n  src: url(\"/assets/fonts/static/PlusJakartaSans-Medium.ttf\") format(\"truetype\");\n}\n@font-face {\n  font-family: \"VariableFont\";\n  src: url(\"/assets/fonts/PlusJakartaSans-VariableFont_wght.ttf\") format(\"truetype\");\n}\n.App {\n  text-align: center;\n}\n\n.componentNotifications {\n  margin: 2%;\n}\n.componentNotifications .notificationElement {\n  margin: 2%;\n  padding: 2%;\n  background-color: hsl(0, 0%, 100%);\n  display: flex;\n  flex-flow: row wrap;\n  align-items: flex-start;\n  justify-content: flex-start;\n}\n.componentNotifications .notificationElement .avatarImg {\n  flex: 0 10%;\n}\n.componentNotifications .notificationElement .content {\n  margin: 0 2%;\n  position: relative;\n  flex: 0 80%;\n  display: flex;\n  flex-flow: row wrap;\n  align-items: center;\n  justify-content: flex-start;\n  text-align: left;\n  font-size: 1.6rem;\n  font-weight: 600;\n}\n.componentNotifications .notificationElement .content .mainText {\n  display: inline;\n  flex: 1 100%;\n  flex-flow: row wrap;\n  align-items: center;\n  justify-content: flex-start;\n  text-align: left;\n}\n.componentNotifications .notificationElement .content .mainText .author {\n  margin: 0 1%;\n  font-size: 2rem;\n  cursor: pointer;\n}\n.componentNotifications .notificationElement .content .mainText .author:hover {\n  color: hsl(219, 85%, 26%);\n}\n.componentNotifications .notificationElement .content .mainText .reaction {\n  font-size: 1.7rem;\n  text-align: left;\n  margin: 0;\n  color: hsl(219, 12%, 42%);\n}\n.componentNotifications .notificationElement .content .mainText .postTitle {\n  margin: 0;\n  color: hsl(224, 21%, 14%);\n  font-weight: 600;\n  cursor: pointer;\n}\n.componentNotifications .notificationElement .content .mainText .postTitle:hover {\n  color: hsl(219, 85%, 26%);\n  font-weight: 700;\n}\n.componentNotifications .notificationElement .content .mainText .group {\n  color: hsl(219, 85%, 26%);\n  margin: 0 1% 0 0;\n  cursor: pointer;\n}\n.componentNotifications .notificationElement .content .mainText .commentedPicture {\n  position: absolute;\n  right: 2%;\n  cursor: pointer;\n}\n.componentNotifications .notificationElement .content .mainText .notRead {\n  display: inline-flex;\n  padding: 5px;\n  border-radius: 10px;\n  background-color: hsl(1, 90%, 64%);\n}\n.componentNotifications .notificationElement .content .message {\n  margin: 2%;\n  padding: 2%;\n  flex: 1 100%;\n  color: hsl(219, 12%, 42%);\n  text-align: left;\n  border: 1px solid hsl(219, 12%, 42%);\n  border-radius: 10px;\n  cursor: pointer;\n}\n.componentNotifications .notificationElement .content .message:hover {\n  background-color: hsl(211, 68%, 94%);\n}\n.componentNotifications .notificationElement .content .data {\n  margin: 0 1%;\n  flex: 1 100%;\n  text-align: start;\n  color: hsl(219, 14%, 63%);\n}\n\n@media all and (max-width: 680px) {\n  .componentNotifications .notificationElement .avatarImg {\n    flex: 0 20%;\n    width: 50%;\n    height: auto;\n  }\n  .componentNotifications .notificationElement .content {\n    margin: 0 2% 0 3%;\n    display: flex;\n    flex-flow: row wrap;\n    flex: 0 70%;\n    justify-content: flex-start;\n    font-size: 1.4rem;\n    text-align: left;\n  }\n  .componentNotifications .notificationElement .content .mainText .author {\n    margin: 0 1%;\n    font-size: 1.7rem;\n  }\n  .componentNotifications .notificationElement .content .mainText .reaction {\n    font-size: 1.5rem;\n  }\n  .componentNotifications .notificationElement .content .mainText .notRead {\n    order: 5;\n    padding: 1%;\n    flex: 0 0.25%;\n    border-radius: 10px;\n    background-color: hsl(1, 90%, 64%);\n  }\n  .componentNotifications .notificationElement .content .mainText .commentedPicture {\n    position: static;\n    float: right;\n  }\n}\n@media all and (max-width: 480px) {\n  .componentNotifications .notificationElement .content {\n    font-size: 1.2rem;\n  }\n  .componentNotifications .notificationElement .content .mainText .author {\n    font-size: 1.5rem;\n  }\n  .componentNotifications .notificationElement .content .mainText .reaction {\n    font-size: 1.3rem;\n  }\n}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
 
 /***/ }),
 
@@ -390,50 +560,6 @@ module.exports = function (cssWithMappingToString) {
   };
 
   return list;
-};
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/runtime/getUrl.js":
-/*!********************************************************!*\
-  !*** ./node_modules/css-loader/dist/runtime/getUrl.js ***!
-  \********************************************************/
-/***/ ((module) => {
-
-"use strict";
-
-
-module.exports = function (url, options) {
-  if (!options) {
-    // eslint-disable-next-line no-param-reassign
-    options = {};
-  } // eslint-disable-next-line no-underscore-dangle, no-param-reassign
-
-
-  url = url && url.__esModule ? url.default : url;
-
-  if (typeof url !== "string") {
-    return url;
-  } // If url is already wrapped in quotes, remove them
-
-
-  if (/^['"].*['"]$/.test(url)) {
-    // eslint-disable-next-line no-param-reassign
-    url = url.slice(1, -1);
-  }
-
-  if (options.hash) {
-    // eslint-disable-next-line no-param-reassign
-    url += options.hash;
-  } // Should url be wrapped?
-  // See https://drafts.csswg.org/css-values-3/#urls
-
-
-  if (/["'() \t\n]/.test(url) || options.needQuotes) {
-    return "\"".concat(url.replace(/"/g, '\\"').replace(/\n/g, "\\n"), "\"");
-  }
-
-  return url;
 };
 
 /***/ }),
@@ -558,10 +684,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/Components/assets/fonts/PlusJakartaSans-VariableFont_wght.ttf":
-/*!************************************************************************************!*\
-  !*** ./resources/js/Components/assets/fonts/PlusJakartaSans-VariableFont_wght.ttf ***!
-  \************************************************************************************/
+/***/ "./resources/js/src/components/assets/images/avatar-angela-gray.webp":
+/*!***************************************************************************!*\
+  !*** ./resources/js/src/components/assets/images/avatar-angela-gray.webp ***!
+  \***************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -569,14 +695,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/fonts/PlusJakartaSans-VariableFont_wght.ttf?ae47e4d01757abf8ad632c3d15454907");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/avatar-angela-gray.webp?be3397e8fa98e1cac92662446bf95558");
 
 /***/ }),
 
-/***/ "./resources/js/Components/assets/fonts/static/PlusJakartaSans-ExtraBold.ttf":
-/*!***********************************************************************************!*\
-  !*** ./resources/js/Components/assets/fonts/static/PlusJakartaSans-ExtraBold.ttf ***!
-  \***********************************************************************************/
+/***/ "./resources/js/src/components/assets/images/avatar-anna-kim.webp":
+/*!************************************************************************!*\
+  !*** ./resources/js/src/components/assets/images/avatar-anna-kim.webp ***!
+  \************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -584,13 +710,73 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/fonts/PlusJakartaSans-ExtraBold.ttf?5a0637ca31265773a5975d0fd9c49879");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/avatar-anna-kim.webp?14242399b99facbf45c71ef3275ea351");
 
 /***/ }),
 
-/***/ "./resources/js/Components/assets/fonts/static/PlusJakartaSans-Medium.ttf":
+/***/ "./resources/js/src/components/assets/images/avatar-jacob-thompson.webp":
+/*!******************************************************************************!*\
+  !*** ./resources/js/src/components/assets/images/avatar-jacob-thompson.webp ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/avatar-jacob-thompson.webp?ef1880754355ebe956bb11e97fa1fcdd");
+
+/***/ }),
+
+/***/ "./resources/js/src/components/assets/images/avatar-kimberly-smith.webp":
+/*!******************************************************************************!*\
+  !*** ./resources/js/src/components/assets/images/avatar-kimberly-smith.webp ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/avatar-kimberly-smith.webp?00520dc2b2f8e585aac5617c7d1305a8");
+
+/***/ }),
+
+/***/ "./resources/js/src/components/assets/images/avatar-mark-webber.webp":
+/*!***************************************************************************!*\
+  !*** ./resources/js/src/components/assets/images/avatar-mark-webber.webp ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/avatar-mark-webber.webp?e3e820b976dfaf7f762aa3bc94ffdbc4");
+
+/***/ }),
+
+/***/ "./resources/js/src/components/assets/images/avatar-nathan-peterson.webp":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/src/components/assets/images/avatar-nathan-peterson.webp ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/avatar-nathan-peterson.webp?03727540c8ed8341d7453722739eb124");
+
+/***/ }),
+
+/***/ "./resources/js/src/components/assets/images/avatar-rizky-hasanuddin.webp":
 /*!********************************************************************************!*\
-  !*** ./resources/js/Components/assets/fonts/static/PlusJakartaSans-Medium.ttf ***!
+  !*** ./resources/js/src/components/assets/images/avatar-rizky-hasanuddin.webp ***!
   \********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -599,7 +785,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/fonts/PlusJakartaSans-Medium.ttf?b1ea1e4a874b401f584a6e8a0784ef14");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/avatar-rizky-hasanuddin.webp?2c9e9a5d4982e8f1b6142b28c592cbd0");
+
+/***/ }),
+
+/***/ "./resources/js/src/components/assets/images/image-chess.webp":
+/*!********************************************************************!*\
+  !*** ./resources/js/src/components/assets/images/image-chess.webp ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/image-chess.webp?b06cd5b36869c9a4784edd0b2e9e660b");
 
 /***/ }),
 
@@ -34233,7 +34434,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_header_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!../../../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!../../../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./header.scss */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./resources/js/Components/scss/header.scss");
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_header_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_header_scss__WEBPACK_IMPORTED_MODULE_1__);
 
             
 
@@ -34242,11 +34442,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()((_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_header_scss__WEBPACK_IMPORTED_MODULE_1___default()), options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_header_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_header_scss__WEBPACK_IMPORTED_MODULE_1___default().locals) || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_header_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -34264,7 +34464,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_notification_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!../../../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!../../../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./notification.scss */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./resources/js/Components/scss/notification.scss");
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_notification_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_notification_scss__WEBPACK_IMPORTED_MODULE_1__);
 
             
 
@@ -34273,11 +34472,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()((_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_notification_scss__WEBPACK_IMPORTED_MODULE_1___default()), options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_notification_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_notification_scss__WEBPACK_IMPORTED_MODULE_1___default().locals) || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_notification_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
