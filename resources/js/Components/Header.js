@@ -3,6 +3,7 @@ import "./scss/header.scss"
 import { useDispatch, useSelector } from 'react-redux';
 
 import { markAsReaded } from "./app/redux/slice";
+import AddNotification from './AddNotification';
 
 function Header() {
   const notReaded = useSelector((state) => state.readed.notReaded)
@@ -14,6 +15,7 @@ function Header() {
   
   return (
     <header>
+      <AddNotification />
         <div className="notification">
             <h1>Notifications <span>{notReaded}</span></h1>
         

@@ -1,0 +1,24 @@
+.addNotificationsComponent{
+    form{
+        display:flex;
+        flex-flow: row wrap;
+        flex: 1 100%;
+        justify-content: flex-start;
+        div{
+            margin: 2%;
+            display: flex;
+            flex: 0 80%;
+            align-items: center;
+
+            label {
+                margin: 0 2%;
+                flex: 0 30%;
+            }
+            input{
+                padding: 1% 2%;
+            }
+            
+            
+        }
+    }
+}
