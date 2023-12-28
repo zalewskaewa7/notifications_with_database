@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import "./scss/addNotifications.scss"
+import axios from "axios";
 
 class AddNotification extends React.Component {
     constructor(props) {
@@ -24,12 +25,64 @@ class AddNotification extends React.Component {
         });
     }
 
+    validateData(data) {
+        if (data.length >= 3) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    addNotification(e){
+        e.preventDefault();
+        if (
+            this.validateData(this.state.avatarSrc) &&
+            this.validateData(this.state.autor) &&
+            this.validateData(this.state.reaction) &&
+            this.validateData(this.state.data)
+        ) {axios
+            .post("/api/addnotification", {
+                avatarSrc: this.state.avatarSrc,
+                autor: this.state.autor,
+                reaction: this.state.reaction,
+                postTitle: this.state.postTitle,
+                group: this.state.group,
+                message: this.state.message,
+                commentedPicture: this.state.commentedPicture,
+                data: this.state.data,
+
+            })
+
+            .then(function (response) {
+                console.log(response.data);
+            })
+
+            .catch(function (error) {
+                console.log(error);
+            });
+
+        console.log("udalo sie");
+        this.setState({
+            avatarSrc: "",
+            autor: "",
+            reaction: "",
+            postTitle: "",
+            group: "",
+            message: "",
+            commentedPicture: "",
+            data: "",
+        });
+    } else {
+        console.log("Popraw dane do powiadomienia");
+    }
+    }
+
 
     render() {
   return (
     <div className="addNotificationsComponent">
         <h2>Nowe powiadomienie</h2>
-        <form>
+        <form onSubmit={(e) => this.addNotification(e)}>
             <div >
              <label>Zdjęcie</label>
             <input  type="text" 
@@ -107,7 +160,7 @@ class AddNotification extends React.Component {
                     value={this.state.data}
                     onChange={this.onChangeValue}></input>
             </div>
-            
+            <button>Dodaj powiadomienie</button>
         </form>
     </div>
   )

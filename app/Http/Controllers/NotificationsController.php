@@ -14,7 +14,9 @@ class NotificationsController extends Controller
      */
     public function index()
     {
-        //
+        $data= Notifications::all();
+        
+        return $data;
     }
 
     /**
@@ -35,7 +37,26 @@ class NotificationsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+            $data = new Notifications();
+             $data -> avatarSrc =$request->avatarSrc;
+             $data -> autor = $request->autor;
+             $data -> reaction =$request->reaction;
+             $data -> postTitle = $request->postTitle;
+             $data -> group = $request->group;
+             $data -> message = $request->message;
+             $data -> commentedPicture = $request->commentedPicture;
+             $data -> data = $request->data;
+             $data -> ifRead = false;
+
+    
+             $data -> save();
+            
+           
+            return response()->json($data);
+    
+        
+    
     }
 
     /**
@@ -69,7 +90,11 @@ class NotificationsController extends Controller
      */
     public function update(Request $request, Notifications $notifications)
     {
-        //
+        $data = Notifications::find($id);
+    // $data ->email = $request('ifRead');
+    // $data -> message = $request('message');
+    $data -> ifRead = true;
+    $data ->save();
     }
 
     /**

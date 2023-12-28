@@ -1,21 +1,28 @@
 import React from 'react'
 import "./scss/notification.scss"
 import "../App.scss";
-import { useSelector } from 'react-redux';
+import axios from "axios";
 
 
-
-
-
-function Notification(props) {
-    const notifications = useSelector((state) => state.readed.notifications)
+class Notification extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            datas: [],
+        }
+    }
     
-
+    componentDidMount() {
+        axios.get("/api/notifications").then((response) => {
+            this.setState({ datas: response.data });
+        });
+    }
+    render() {
   return (
     <div className="componentNotifications">
 
         {
-        notifications.map((item, index) =>{
+        this.state.datas.map((item, index) =>{
             return(
                 <div className="notificationElement"  style={{backgroundColor: item.ifRead ? "" :  "hsl(210, 60%, 98%)"}} key={index}>
                     <img className="avatarImg" src={item.avatarSrc} alt={item.autor}/>
@@ -28,7 +35,7 @@ function Notification(props) {
                         
                             
                             <span className="group">{item.group}</span>
-                            <span className={item.ifRead ? "" : "notRead"}>{item.ifRead}</span>
+                            <span className={item.ifRead ? "" : "notRead"}></span>
                             
                             {item.commentedPicture ? 
                                  <img className="commentedPicture" src={item.commentedPicture} alt={item.autor}/>
@@ -46,6 +53,7 @@ function Notification(props) {
         }
         </div>
   )
+}
 }
 
 export default Notification

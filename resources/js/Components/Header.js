@@ -1,29 +1,56 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./scss/header.scss"
-import { useDispatch, useSelector } from 'react-redux';
 
-import { markAsReaded } from "./app/redux/slice";
 import AddNotification from './AddNotification';
+import axios from "axios";
 
-function Header() {
-  const notReaded = useSelector((state) => state.readed.notReaded)
-  const dispatch = useDispatch()
 
-  function markReaded(){
-   dispatch(markAsReaded());
+class Header extends React.Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+          datas: [],
+          notReaded: 0,
+          notReadedIndex: []
+      }
   }
   
+  componentDidMount() {
+      axios.get("/api/notifications").then((response) => {
+          this.setState({ datas: response.data });
+          response.data.map((element, index) => 
+            (element.ifRead) ? "" : 
+            this.setState({
+              notReaded: this.state.notReaded = this.state.notReaded+1,
+              notReadedIndex: this.state.notReadedIndex = [...this.state.notReadedIndex, index+1]
+            })
+      )
+      });
+  }
+   markReaded(){
+    this.state.datas.forEach((element) => element.ifRead= 1);
+    this.setState({notReaded: 0});
+this.state.notReadedIndex.map((element) => 
+  axios.post("/api/updatenotification/"+element)
+  
+)
+   
+  }
+
+  render() {
+
   return (
     <header>
       <AddNotification />
         <div className="notification">
-            <h1>Notifications <span>{notReaded}</span></h1>
+            <h1>Notifications <span>{this.state.notReaded}</span></h1>
         
         </div>
         
-        <div className="markAsRead" onClick={() => markReaded()}>Mark all as read</div>
+        <div className="markAsRead" onClick={() => this.markReaded()}>Mark all as read</div>
     </header>
   )
+}
 }
 
 export default Header
