@@ -20,4 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::get('/notifications', [NotificationsController::class, 'index']);
 Route::post('/addnotification', [NotificationsController::class, 'store']);
-Route::post('/updatenotification/{id}', [NotificationsController::class, 'update']);
+Route::put('/updatenotification/{id}', [NotificationsController::class, 'update']);

@@ -31,7 +31,8 @@ class Header extends React.Component {
     this.state.datas.forEach((element) => element.ifRead= 1);
     this.setState({notReaded: 0});
 this.state.notReadedIndex.map((element) => 
-  axios.post("/api/updatenotification/"+element)
+  axios.put("/api/updatenotification/"+element)
+  .then((response) => console.log(response))
   
 )
    

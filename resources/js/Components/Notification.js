@@ -14,7 +14,9 @@ class Notification extends React.Component {
     
     componentDidMount() {
         axios.get("/api/notifications").then((response) => {
-            this.setState({ datas: response.data });
+            let notifications = response.data;
+            notifications.reverse();
+            this.setState({ datas: notifications });
         });
     }
     render() {

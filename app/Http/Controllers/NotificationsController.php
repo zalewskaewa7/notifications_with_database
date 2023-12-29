@@ -88,7 +88,7 @@ class NotificationsController extends Controller
      * @param  \App\Models\Notifications  $notifications
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Notifications $notifications)
+    public function update(Request $request, Notifications $notifications, $id)
     {
         $data = Notifications::find($id);
     // $data ->email = $request('ifRead');

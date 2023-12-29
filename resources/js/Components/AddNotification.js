@@ -14,6 +14,7 @@ class AddNotification extends React.Component {
             message: "",
             commentedPicture: "",
             data: "",
+            datas: [],
         };
         this.onChangeValue = this.onChangeValue.bind(this);
     }
@@ -54,7 +55,12 @@ class AddNotification extends React.Component {
             })
 
             .then(function (response) {
-                console.log(response.data);
+                axios.get("/api/notifications").then((response) => {
+                    let notifications = response.data;
+                    notifications.reverse();
+                    this.setState({ datas: notifications });
+                });
+                
             })
 
             .catch(function (error) {

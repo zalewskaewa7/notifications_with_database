@@ -2204,7 +2204,8 @@ var AddNotification = /*#__PURE__*/function (_React$Component) {
       group: "",
       message: "",
       commentedPicture: "",
-      data: ""
+      data: "",
+      datas: []
     };
     _this.onChangeValue = _this.onChangeValue.bind(_assertThisInitialized(_this));
     return _this;
@@ -2238,7 +2239,14 @@ var AddNotification = /*#__PURE__*/function (_React$Component) {
           commentedPicture: this.state.commentedPicture,
           data: this.state.data
         }).then(function (response) {
-          console.log(response.data);
+          var _this2 = this;
+          axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/notifications").then(function (response) {
+            var notifications = response.data;
+            notifications.reverse();
+            _this2.setState({
+              datas: notifications
+            });
+          });
         })["catch"](function (error) {
           console.log(error);
         });
@@ -2260,12 +2268,12 @@ var AddNotification = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         className: "addNotificationsComponent"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Nowe powiadomienie"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
         onSubmit: function onSubmit(e) {
-          return _this2.addNotification(e);
+          return _this3.addNotification(e);
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Zdj\u0119cie"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
         type: "text",
@@ -2416,7 +2424,9 @@ var Header = /*#__PURE__*/function (_React$Component) {
         notReaded: 0
       });
       this.state.notReadedIndex.map(function (element) {
-        return axios__WEBPACK_IMPORTED_MODULE_3___default().post("/api/updatenotification/" + element);
+        return axios__WEBPACK_IMPORTED_MODULE_3___default().put("/api/updatenotification/" + element).then(function (response) {
+          return console.log(response);
+        });
       });
     }
   }, {
@@ -2490,8 +2500,10 @@ var Notification = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
       axios__WEBPACK_IMPORTED_MODULE_3___default().get("/api/notifications").then(function (response) {
+        var notifications = response.data;
+        notifications.reverse();
         _this2.setState({
-          datas: response.data
+          datas: notifications
         });
       });
     }
