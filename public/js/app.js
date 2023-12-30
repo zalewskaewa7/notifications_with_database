@@ -2172,6 +2172,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_addNotifications_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./scss/addNotifications.scss */ "./resources/js/Components/scss/addNotifications.scss");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Notification_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Notification.js */ "./resources/js/Components/Notification.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2186,6 +2187,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -2208,6 +2210,8 @@ var AddNotification = /*#__PURE__*/function (_React$Component) {
       datas: []
     };
     _this.onChangeValue = _this.onChangeValue.bind(_assertThisInitialized(_this));
+    _this.showForm = _this.props.showForm.bind(_assertThisInitialized(_this));
+    _this.closeForm = _this.props.closeForm.bind(_assertThisInitialized(_this));
     return _this;
   }
   _createClass(AddNotification, [{
@@ -2238,16 +2242,7 @@ var AddNotification = /*#__PURE__*/function (_React$Component) {
           message: this.state.message,
           commentedPicture: this.state.commentedPicture,
           data: this.state.data
-        }).then(function (response) {
-          var _this2 = this;
-          axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/notifications").then(function (response) {
-            var notifications = response.data;
-            notifications.reverse();
-            _this2.setState({
-              datas: notifications
-            });
-          });
-        })["catch"](function (error) {
+        }).then(function (response) {})["catch"](function (error) {
           console.log(error);
         });
         console.log("udalo sie");
@@ -2261,6 +2256,7 @@ var AddNotification = /*#__PURE__*/function (_React$Component) {
           commentedPicture: "",
           data: ""
         });
+        this.closeForm();
       } else {
         console.log("Popraw dane do powiadomienia");
       }
@@ -2268,12 +2264,15 @@ var AddNotification = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         className: "addNotificationsComponent"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Nowe powiadomienie"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Nowe powiadomienie"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+        className: "closeButton",
+        onClick: this.showForm
+      }, "x"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
         onSubmit: function onSubmit(e) {
-          return _this3.addNotification(e);
+          return _this2.addNotification(e);
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Zdj\u0119cie"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
         type: "text",
@@ -2358,9 +2357,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _scss_header_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./scss/header.scss */ "./resources/js/Components/scss/header.scss");
-/* harmony import */ var _AddNotification__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AddNotification */ "./resources/js/Components/AddNotification.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -2383,7 +2381,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-
 var Header = /*#__PURE__*/function (_React$Component) {
   _inherits(Header, _React$Component);
   var _super = _createSuper(Header);
@@ -2402,7 +2399,7 @@ var Header = /*#__PURE__*/function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this2 = this;
-      axios__WEBPACK_IMPORTED_MODULE_3___default().get("/api/notifications").then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/notifications").then(function (response) {
         _this2.setState({
           datas: response.data
         });
@@ -2424,7 +2421,7 @@ var Header = /*#__PURE__*/function (_React$Component) {
         notReaded: 0
       });
       this.state.notReadedIndex.map(function (element) {
-        return axios__WEBPACK_IMPORTED_MODULE_3___default().put("/api/updatenotification/" + element).then(function (response) {
+        return axios__WEBPACK_IMPORTED_MODULE_2___default().put("/api/updatenotification/" + element).then(function (response) {
           return console.log(response);
         });
       });
@@ -2433,9 +2430,14 @@ var Header = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       var _this3 = this;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("header", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_AddNotification__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("header", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         className: "notification"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Notifications ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, this.state.notReaded))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Notifications ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, this.state.notReaded))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+        className: "buttonAddForm",
+        onClick: function onClick() {
+          return _this3.props.showForm();
+        }
+      }, "Dodaj powiadomienie"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         className: "markAsRead",
         onClick: function onClick() {
           return _this3.markReaded();
@@ -2493,6 +2495,7 @@ var Notification = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       datas: []
     };
+    _this.showNewDataBase = _this.props.showNewDataBase.bind(_assertThisInitialized(_this));
     return _this;
   }
   _createClass(Notification, [{
@@ -2508,11 +2511,24 @@ var Notification = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "showNewData",
+    value: function showNewData() {
+      var _this3 = this;
+      axios__WEBPACK_IMPORTED_MODULE_3___default().get("/api/notifications").then(function (response) {
+        var notifications = response.data;
+        notifications.reverse();
+        _this3.setState({
+          datas: notifications
+        });
+      });
+      this.showNewDataBase();
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         className: "componentNotifications"
-      }, this.state.datas.map(function (item, index) {
+      }, this.props.newData ? this.state.datas.map(function (item, index) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
           className: "notificationElement",
           style: {
@@ -2546,7 +2562,7 @@ var Notification = /*#__PURE__*/function (_React$Component) {
         }, item.data), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
           className: item.message ? "message" : ""
         }, item.message)));
-      }));
+      }) : this.showNewData());
     }
   }]);
   return Notification;
@@ -2565,12 +2581,23 @@ var Notification = /*#__PURE__*/function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
 /* harmony import */ var _src_app_redux_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./src/app/redux/store */ "./resources/js/src/app/redux/store.js");
 /* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
 /* harmony import */ var _App_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./App.scss */ "./resources/js/App.scss");
 /* harmony import */ var _Components_Header__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Components/Header */ "./resources/js/Components/Header.js");
 /* harmony import */ var _Components_Notification__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Components/Notification */ "./resources/js/Components/Notification.js");
+/* harmony import */ var _Components_AddNotification__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Components/AddNotification */ "./resources/js/Components/AddNotification.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_7__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
@@ -2579,14 +2606,40 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function App() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    showFormAddNotification = _useState2[0],
+    setShowFormAddNotification = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    _useState4 = _slicedToArray(_useState3, 2),
+    newData = _useState4[0],
+    setNewData = _useState4[1];
+  function showForm() {
+    setShowFormAddNotification(!showFormAddNotification);
+  }
+  function closeForm() {
+    setNewData(false);
+    setShowFormAddNotification(!showFormAddNotification);
+  }
+  function showNewDataBase() {
+    setNewData(true);
+  }
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "App"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Header__WEBPACK_IMPORTED_MODULE_4__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("main", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notification__WEBPACK_IMPORTED_MODULE_5__["default"], null)));
+  }, showFormAddNotification ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_AddNotification__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    showForm: showForm,
+    closeForm: closeForm
+  }) : "", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Header__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    showForm: showForm
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("main", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notification__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    newData: newData,
+    showNewDataBase: showNewDataBase
+  })));
 }
 var container = document.getElementById('app');
 var root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_2__.createRoot)(container);
 // root.render(<App />);
-root.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_redux__WEBPACK_IMPORTED_MODULE_6__.Provider, {
+root.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_redux__WEBPACK_IMPORTED_MODULE_8__.Provider, {
   store: _src_app_redux_store__WEBPACK_IMPORTED_MODULE_1__.store
 }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(App, null)));
 
@@ -2780,7 +2833,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".addNotificationsComponent form {\n  display: flex;\n  flex-flow: row wrap;\n  flex: 1 100%;\n  justify-content: flex-start;\n}\n.addNotificationsComponent form div {\n  margin: 2%;\n  display: flex;\n  flex: 0 80%;\n  align-items: center;\n}\n.addNotificationsComponent form div label {\n  margin: 0 2%;\n  flex: 0 30%;\n}\n.addNotificationsComponent form div input {\n  padding: 1% 2%;\n}\n.addNotificationsComponent form button {\n  flex: 0 30%;\n  padding: 3% 5%;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@font-face {\n  font-family: \"ExtraBold\";\n  src: url(\"/assets/fonts/static/PlusJakartaSans-ExtraBold.ttf\") format(\"truetype\");\n}\n@font-face {\n  font-family: \"Medium\";\n  src: url(\"/assets/fonts/static/PlusJakartaSans-Medium.ttf\") format(\"truetype\");\n}\n@font-face {\n  font-family: \"VariableFont\";\n  src: url(\"/assets/fonts/PlusJakartaSans-VariableFont_wght.ttf\") format(\"truetype\");\n}\n.App {\n  text-align: center;\n}\n\n.addNotificationsComponent {\n  padding: 1%;\n  position: absolute;\n  top: 5%;\n  left: 10%;\n  width: 50%;\n  background-color: hsl(219, 59%, 73%);\n  z-index: 2;\n  color: white;\n  border-radius: 10px;\n  box-shadow: 8px 5px 5px hsl(219, 85%, 26%);\n}\n.addNotificationsComponent .closeButton {\n  position: absolute;\n  top: 0;\n  right: 0;\n  padding: 2%;\n  background-color: hsl(219, 85%, 26%);\n  color: white;\n  border: 0;\n  border-radius: 5px;\n  font-size: 1.3rem;\n  cursor: pointer;\n}\n.addNotificationsComponent .closeButton:hover {\n  opacity: 0.8;\n}\n.addNotificationsComponent form {\n  padding: 2%;\n  display: flex;\n  flex-flow: row wrap;\n  flex: 1 100%;\n  justify-content: flex-start;\n}\n.addNotificationsComponent form div {\n  margin: 2%;\n  display: flex;\n  flex: 0 80%;\n  align-items: center;\n}\n.addNotificationsComponent form div label {\n  margin: 0 2%;\n  flex: 0 30%;\n  font-weight: 600;\n  font-size: 1.3rem;\n}\n.addNotificationsComponent form div input {\n  padding: 1% 2%;\n}\n.addNotificationsComponent form button {\n  flex: 0 35%;\n  padding: 3% 5%;\n  margin: 2% 5% 0% 25%;\n  background-color: hsl(219, 85%, 26%);\n  border: 0;\n  color: white;\n  border-radius: 5px;\n  font-weight: 500;\n  font-size: 1.1rem;\n  cursor: pointer;\n}\n.addNotificationsComponent form button:hover {\n  opacity: 0.8;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2804,7 +2857,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@font-face {\n  font-family: \"ExtraBold\";\n  src: url(\"/assets/fonts/static/PlusJakartaSans-ExtraBold.ttf\") format(\"truetype\");\n}\n@font-face {\n  font-family: \"Medium\";\n  src: url(\"/assets/fonts/static/PlusJakartaSans-Medium.ttf\") format(\"truetype\");\n}\n@font-face {\n  font-family: \"VariableFont\";\n  src: url(\"/assets/fonts/PlusJakartaSans-VariableFont_wght.ttf\") format(\"truetype\");\n}\n.App {\n  text-align: center;\n}\n\nheader {\n  margin: 2% 4%;\n  display: flex;\n  flex: 1 100%;\n  flex-flow: row wrap;\n  justify-content: space-between;\n  align-items: center;\n}\nheader .notification h1 {\n  display: flex;\n  flex: 0 50%;\n  flex-flow: row nowrap;\n  justify-content: flex-start;\n}\nheader .notification span {\n  margin: 0 3%;\n  padding: 0 6%;\n  background-color: hsl(219, 85%, 26%);\n  color: hsl(0, 0%, 100%);\n  border-radius: 10px;\n}\nheader .markAsRead {\n  color: hsl(219, 12%, 42%);\n  font-family: \"Medium\";\n  font-size: 1.3rem;\n  cursor: pointer;\n}\nheader .markAsRead:hover {\n  color: hsl(219, 85%, 26%);\n}\n\n@media all and (max-width: 480px) {\n  header .notification h1 {\n    font-size: 1.7rem;\n  }\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@font-face {\n  font-family: \"ExtraBold\";\n  src: url(\"/assets/fonts/static/PlusJakartaSans-ExtraBold.ttf\") format(\"truetype\");\n}\n@font-face {\n  font-family: \"Medium\";\n  src: url(\"/assets/fonts/static/PlusJakartaSans-Medium.ttf\") format(\"truetype\");\n}\n@font-face {\n  font-family: \"VariableFont\";\n  src: url(\"/assets/fonts/PlusJakartaSans-VariableFont_wght.ttf\") format(\"truetype\");\n}\n.App {\n  text-align: center;\n}\n\nheader {\n  margin: 2% 4%;\n  display: flex;\n  flex: 1 100%;\n  flex-flow: row wrap;\n  justify-content: space-between;\n  align-items: center;\n}\nheader .notification h1 {\n  display: flex;\n  flex: 0 50%;\n  flex-flow: row nowrap;\n  justify-content: flex-start;\n}\nheader .notification span {\n  margin: 0 3%;\n  padding: 0 6%;\n  background-color: hsl(219, 85%, 26%);\n  color: hsl(0, 0%, 100%);\n  border-radius: 10px;\n}\nheader .markAsRead {\n  color: hsl(219, 12%, 42%);\n  font-family: \"Medium\";\n  font-size: 1.3rem;\n  cursor: pointer;\n}\nheader .markAsRead:hover {\n  color: hsl(219, 85%, 26%);\n}\nheader .buttonAddForm {\n  padding: 1% 2%;\n  background-color: hsl(219, 85%, 26%);\n  color: white;\n  border: 0;\n  border-radius: 5px;\n  font-size: 1.3rem;\n  cursor: pointer;\n}\nheader .buttonAddForm:hover {\n  opacity: 0.8;\n}\n\n@media all and (max-width: 480px) {\n  header .notification h1 {\n    font-size: 1.7rem;\n  }\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

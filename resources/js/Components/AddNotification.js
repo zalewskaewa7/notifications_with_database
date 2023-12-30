@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import "./scss/addNotifications.scss"
 import axios from "axios";
+import Notification from "./Notification.js";
+
 
 class AddNotification extends React.Component {
     constructor(props) {
@@ -17,9 +19,9 @@ class AddNotification extends React.Component {
             datas: [],
         };
         this.onChangeValue = this.onChangeValue.bind(this);
+       this.showForm = this.props.showForm.bind(this);
+       this.closeForm = this.props.closeForm.bind(this);
     }
-    
-
     onChangeValue(e) {
         this.setState({
             [e.target.name]: e.target.value,
@@ -34,6 +36,8 @@ class AddNotification extends React.Component {
         }
     }
 
+   
+
     addNotification(e){
         e.preventDefault();
         if (
@@ -41,7 +45,9 @@ class AddNotification extends React.Component {
             this.validateData(this.state.autor) &&
             this.validateData(this.state.reaction) &&
             this.validateData(this.state.data)
-        ) {axios
+        ) {
+            
+            axios
             .post("/api/addnotification", {
                 avatarSrc: this.state.avatarSrc,
                 autor: this.state.autor,
@@ -55,12 +61,7 @@ class AddNotification extends React.Component {
             })
 
             .then(function (response) {
-                axios.get("/api/notifications").then((response) => {
-                    let notifications = response.data;
-                    notifications.reverse();
-                    this.setState({ datas: notifications });
-                });
-                
+            
             })
 
             .catch(function (error) {
@@ -68,6 +69,7 @@ class AddNotification extends React.Component {
             });
 
         console.log("udalo sie");
+       
         this.setState({
             avatarSrc: "",
             autor: "",
@@ -77,7 +79,8 @@ class AddNotification extends React.Component {
             message: "",
             commentedPicture: "",
             data: "",
-        });
+        }); 
+         this.closeForm();
     } else {
         console.log("Popraw dane do powiadomienia");
     }
@@ -88,6 +91,7 @@ class AddNotification extends React.Component {
   return (
     <div className="addNotificationsComponent">
         <h2>Nowe powiadomienie</h2>
+        <button className="closeButton" onClick={this.showForm}>x</button>
         <form onSubmit={(e) => this.addNotification(e)}>
             <div >
              <label>Zdjęcie</label>
@@ -166,7 +170,7 @@ class AddNotification extends React.Component {
                     value={this.state.data}
                     onChange={this.onChangeValue}></input>
             </div>
-            <button>Dodaj powiadomienie</button>
+            <button >Dodaj powiadomienie</button>
         </form>
     </div>
   )

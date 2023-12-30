@@ -37,6 +37,18 @@ header{
             color: $Blue;
 
          }
+         .buttonAddForm{
+            padding: 1% 2%;
+            background-color: $Blue;
+            color: white;
+            border: 0;
+            border-radius: 5px;
+            font-size: 1.3rem;
+            cursor: pointer;
+         }
+         .buttonAddForm:hover{
+            opacity: 0.8;
+         }
 }
 
 @media all and (max-width:  480px)  {

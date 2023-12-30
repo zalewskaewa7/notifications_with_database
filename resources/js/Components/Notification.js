@@ -10,6 +10,7 @@ class Notification extends React.Component {
         this.state = {
             datas: [],
         }
+        this.showNewDataBase = this.props.showNewDataBase.bind(this);
     }
     
     componentDidMount() {
@@ -19,11 +20,24 @@ class Notification extends React.Component {
             this.setState({ datas: notifications });
         });
     }
+
+    showNewData(){
+        axios.get("/api/notifications").then((response) => {
+            let notifications = response.data;
+            notifications.reverse();
+            this.setState({ 
+                datas: notifications,
+             });
+        });
+
+        this.showNewDataBase();
+
+    }
     render() {
   return (
     <div className="componentNotifications">
-
-        {
+        
+        {this.props.newData ?
         this.state.datas.map((item, index) =>{
             return(
                 <div className="notificationElement"  style={{backgroundColor: item.ifRead ? "" :  "hsl(210, 60%, 98%)"}} key={index}>
@@ -52,7 +66,7 @@ class Notification extends React.Component {
             )
         }
         )
-        }
+        : this.showNewData()}
         </div>
   )
 }

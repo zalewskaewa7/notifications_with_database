@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import "./scss/header.scss"
 
-import AddNotification from './AddNotification';
 import axios from "axios";
 
 
@@ -42,12 +41,11 @@ this.state.notReadedIndex.map((element) =>
 
   return (
     <header>
-      <AddNotification />
         <div className="notification">
             <h1>Notifications <span>{this.state.notReaded}</span></h1>
         
         </div>
-        
+        <button className="buttonAddForm" onClick={() => this.props.showForm()}>Dodaj powiadomienie</button>
         <div className="markAsRead" onClick={() => this.markReaded()}>Mark all as read</div>
     </header>
   )
