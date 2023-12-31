@@ -18,11 +18,12 @@ class Header extends React.Component {
       axios.get("/api/notifications").then((response) => {
           this.setState({ datas: response.data });
           response.data.map((element, index) => 
-            (element.ifRead) ? "" : 
+            (!element.ifRead) ? 
+           
             this.setState({
-              notReaded: this.state.notReaded = this.state.notReaded+1,
+               notReaded: this.state.notReaded = this.state.notReaded+1,
               notReadedIndex: this.state.notReadedIndex = [...this.state.notReadedIndex, index+1]
-            })
+            }): ""
       )
       });
   }
@@ -36,6 +37,8 @@ this.state.notReadedIndex.map((element) =>
 )
    
   }
+
+  
 
   render() {
 
