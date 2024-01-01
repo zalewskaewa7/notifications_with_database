@@ -68,7 +68,6 @@ class AddNotification extends React.Component {
                 console.log(error);
             });
 
-        console.log("udalo sie");
        
         this.setState({
             avatarSrc: "",

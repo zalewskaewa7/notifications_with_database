@@ -27,28 +27,36 @@ header{
                 border-radius: 10px;
             }
          }
-         .markAsRead{
-            color: $Dark-grayish-blue;
-            font-family: "Medium";
-            font-size: 1.3rem;
-            cursor: pointer;
-         }
-         .markAsRead:hover{
-            color: $Blue;
+         .manageNotifications{
+            flex: 0 40%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
 
+               .markAsRead{
+               color: $Dark-grayish-blue;
+               font-family: "Medium";
+               font-size: 1.3rem;
+               cursor: pointer;
+            }
+            .markAsRead:hover{
+               color: $Blue;
+
+            }
+            .buttonAddForm{
+               padding: 2% 4%;
+               background-color: $Blue;
+               color: white;
+               border: 0;
+               border-radius: 5px;
+               font-size: 1.3rem;
+               cursor: pointer;
+            }
+            .buttonAddForm:hover{
+               opacity: 0.8;
+            }
          }
-         .buttonAddForm{
-            padding: 1% 2%;
-            background-color: $Blue;
-            color: white;
-            border: 0;
-            border-radius: 5px;
-            font-size: 1.3rem;
-            cursor: pointer;
-         }
-         .buttonAddForm:hover{
-            opacity: 0.8;
-         }
+        
 }
 
 @media all and (max-width:  480px)  {
@@ -57,7 +65,18 @@ header{
          h1{
             font-size: 1.7rem;
          }
+
       }
+       .manageNotifications{
+         flex: 1 100%;
+         .buttonAddForm{
+            font-size: 1.1rem;
+         }
+         .markAsRead{
+            font-size: 1.1rem;
+
+         }         
+       }
 
    }
 

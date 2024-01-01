@@ -2245,7 +2245,6 @@ var AddNotification = /*#__PURE__*/function (_React$Component) {
         }).then(function (response) {})["catch"](function (error) {
           console.log(error);
         });
-        console.log("udalo sie");
         this.setState({
           avatarSrc: "",
           autor: "",
@@ -2393,6 +2392,7 @@ var Header = /*#__PURE__*/function (_React$Component) {
       notReaded: 0,
       notReadedIndex: []
     };
+    _this.newDataFalse = _this.props.newDataFalse.bind(_assertThisInitialized(_this));
     return _this;
   }
   _createClass(Header, [{
@@ -2404,12 +2404,30 @@ var Header = /*#__PURE__*/function (_React$Component) {
           datas: response.data
         });
         response.data.map(function (element, index) {
-          return !element.ifRead ? _this2.setState({
+          return element.ifRead ? "" : _this2.setState({
             notReaded: _this2.state.notReaded = _this2.state.notReaded + 1,
             notReadedIndex: _this2.state.notReadedIndex = [].concat(_toConsumableArray(_this2.state.notReadedIndex), [index + 1])
-          }) : "";
+          });
         });
       });
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      var _this3 = this;
+      if (this.props.newData) {
+        axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/notifications").then(function (response) {
+          var notReadedNote = 0;
+          var notReadedIndexNote = [];
+          response.data.map(function (element, index) {
+            return element.ifRead ? "" : _this3.setState({
+              notReaded: notReadedNote = notReadedNote + 1,
+              notReadedIndex: notReadedIndexNote = [].concat(_toConsumableArray(notReadedIndexNote), [index + 1])
+            });
+          });
+        });
+      }
+      this.newDataFalse();
     }
   }, {
     key: "markReaded",
@@ -2429,20 +2447,22 @@ var Header = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("header", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         className: "notification"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Notifications ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, this.state.notReaded))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Notifications ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, this.state.notReaded))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+        className: "manageNotifications"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
         className: "buttonAddForm",
         onClick: function onClick() {
-          return _this3.props.showForm();
+          return _this4.props.showForm();
         }
       }, "Dodaj powiadomienie"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         className: "markAsRead",
         onClick: function onClick() {
-          return _this3.markReaded();
+          return _this4.markReaded();
         }
-      }, "Mark all as read"));
+      }, "Mark all as read")));
     }
   }]);
   return Header;
@@ -2495,8 +2515,8 @@ function Index() {
     setNewData(true);
     setShowFormAddNotification(!showFormAddNotification);
   }
-  function showNewDataBase() {
-    setNewData(true);
+  function newDataFalse() {
+    setNewData(false);
   }
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "Index"
@@ -2505,10 +2525,10 @@ function Index() {
     closeForm: closeForm
   }) : "", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Header__WEBPACK_IMPORTED_MODULE_2__["default"], {
     showForm: showForm,
-    newData: newData
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("main", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Notification__WEBPACK_IMPORTED_MODULE_3__["default"], {
     newData: newData,
-    showNewDataBase: showNewDataBase
+    newDataFalse: newDataFalse
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("main", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Notification__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    newData: newData
   })));
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Index);
@@ -2559,7 +2579,6 @@ var Notification = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       datas: []
     };
-    _this.showNewDataBase = _this.props.showNewDataBase.bind(_assertThisInitialized(_this));
     return _this;
   }
   _createClass(Notification, [{
@@ -2589,21 +2608,24 @@ var Notification = /*#__PURE__*/function (_React$Component) {
       }
     }
   }, {
-    key: "showNewData",
-    value: function showNewData() {
+    key: "deleteNotification",
+    value: function deleteNotification() {
       var _this4 = this;
-      axios__WEBPACK_IMPORTED_MODULE_3___default().get("/api/notifications").then(function (response) {
-        var notifications = response.data;
-        notifications.reverse();
-        _this4.setState({
-          datas: notifications
+      var data = new FormData();
+      data.append("message", e);
+      data.append("filesArray", this.state.arrayFileNames);
+      data.append("_method", "POST");
+      axios__WEBPACK_IMPORTED_MODULE_3___default().post("/api/delete/" + e.id, data).then(function (response) {
+        var arrayDB = response.data;
+        return _this4.setState({
+          datas: arrayDB
         });
       });
-      this.showNewDataBase();
     }
   }, {
     key: "render",
     value: function render() {
+      var _this5 = this;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         className: "componentNotifications"
       }, this.state.datas.map(function (item, index) {
@@ -2613,6 +2635,8 @@ var Notification = /*#__PURE__*/function (_React$Component) {
             backgroundColor: item.ifRead ? "" : "hsl(210, 60%, 98%)"
           },
           key: index
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+          className: "notification"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
           className: "avatarImg",
           src: item.avatarSrc,
@@ -2639,7 +2663,11 @@ var Notification = /*#__PURE__*/function (_React$Component) {
           className: "data"
         }, item.data), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
           className: item.message ? "message" : ""
-        }, item.message)));
+        }, item.message))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+          onClick: function onClick() {
+            return _this5.deleteNotification();
+          }
+        }, "Delete"));
       }));
     }
   }]);
@@ -2742,7 +2770,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@font-face {\n  font-family: \"ExtraBold\";\n  src: url(\"/assets/fonts/static/PlusJakartaSans-ExtraBold.ttf\") format(\"truetype\");\n}\n@font-face {\n  font-family: \"Medium\";\n  src: url(\"/assets/fonts/static/PlusJakartaSans-Medium.ttf\") format(\"truetype\");\n}\n@font-face {\n  font-family: \"VariableFont\";\n  src: url(\"/assets/fonts/PlusJakartaSans-VariableFont_wght.ttf\") format(\"truetype\");\n}\n.App {\n  text-align: center;\n}\n\nheader {\n  margin: 2% 4%;\n  display: flex;\n  flex: 1 100%;\n  flex-flow: row wrap;\n  justify-content: space-between;\n  align-items: center;\n}\nheader .notification h1 {\n  display: flex;\n  flex: 0 50%;\n  flex-flow: row nowrap;\n  justify-content: flex-start;\n}\nheader .notification span {\n  margin: 0 3%;\n  padding: 0 6%;\n  background-color: hsl(219, 85%, 26%);\n  color: hsl(0, 0%, 100%);\n  border-radius: 10px;\n}\nheader .markAsRead {\n  color: hsl(219, 12%, 42%);\n  font-family: \"Medium\";\n  font-size: 1.3rem;\n  cursor: pointer;\n}\nheader .markAsRead:hover {\n  color: hsl(219, 85%, 26%);\n}\nheader .buttonAddForm {\n  padding: 1% 2%;\n  background-color: hsl(219, 85%, 26%);\n  color: white;\n  border: 0;\n  border-radius: 5px;\n  font-size: 1.3rem;\n  cursor: pointer;\n}\nheader .buttonAddForm:hover {\n  opacity: 0.8;\n}\n\n@media all and (max-width: 480px) {\n  header .notification h1 {\n    font-size: 1.7rem;\n  }\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@font-face {\n  font-family: \"ExtraBold\";\n  src: url(\"/assets/fonts/static/PlusJakartaSans-ExtraBold.ttf\") format(\"truetype\");\n}\n@font-face {\n  font-family: \"Medium\";\n  src: url(\"/assets/fonts/static/PlusJakartaSans-Medium.ttf\") format(\"truetype\");\n}\n@font-face {\n  font-family: \"VariableFont\";\n  src: url(\"/assets/fonts/PlusJakartaSans-VariableFont_wght.ttf\") format(\"truetype\");\n}\n.App {\n  text-align: center;\n}\n\nheader {\n  margin: 2% 4%;\n  display: flex;\n  flex: 1 100%;\n  flex-flow: row wrap;\n  justify-content: space-between;\n  align-items: center;\n}\nheader .notification h1 {\n  display: flex;\n  flex: 0 50%;\n  flex-flow: row nowrap;\n  justify-content: flex-start;\n}\nheader .notification span {\n  margin: 0 3%;\n  padding: 0 6%;\n  background-color: hsl(219, 85%, 26%);\n  color: hsl(0, 0%, 100%);\n  border-radius: 10px;\n}\nheader .manageNotifications {\n  flex: 0 40%;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\nheader .manageNotifications .markAsRead {\n  color: hsl(219, 12%, 42%);\n  font-family: \"Medium\";\n  font-size: 1.3rem;\n  cursor: pointer;\n}\nheader .manageNotifications .markAsRead:hover {\n  color: hsl(219, 85%, 26%);\n}\nheader .manageNotifications .buttonAddForm {\n  padding: 2% 4%;\n  background-color: hsl(219, 85%, 26%);\n  color: white;\n  border: 0;\n  border-radius: 5px;\n  font-size: 1.3rem;\n  cursor: pointer;\n}\nheader .manageNotifications .buttonAddForm:hover {\n  opacity: 0.8;\n}\n\n@media all and (max-width: 480px) {\n  header .notification h1 {\n    font-size: 1.7rem;\n  }\n  header .manageNotifications {\n    flex: 1 100%;\n  }\n  header .manageNotifications .buttonAddForm {\n    font-size: 1.1rem;\n  }\n  header .manageNotifications .markAsRead {\n    font-size: 1.1rem;\n  }\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2766,7 +2794,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@font-face {\n  font-family: \"ExtraBold\";\n  src: url(\"/assets/fonts/static/PlusJakartaSans-ExtraBold.ttf\") format(\"truetype\");\n}\n@font-face {\n  font-family: \"Medium\";\n  src: url(\"/assets/fonts/static/PlusJakartaSans-Medium.ttf\") format(\"truetype\");\n}\n@font-face {\n  font-family: \"VariableFont\";\n  src: url(\"/assets/fonts/PlusJakartaSans-VariableFont_wght.ttf\") format(\"truetype\");\n}\n.App {\n  text-align: center;\n}\n\n.componentNotifications {\n  margin: 2%;\n}\n.componentNotifications .notificationElement {\n  margin: 2%;\n  padding: 2%;\n  background-color: hsl(0, 0%, 100%);\n  display: flex;\n  flex-flow: row wrap;\n  align-items: flex-start;\n  justify-content: flex-start;\n}\n.componentNotifications .notificationElement .avatarImg {\n  flex: 0 10%;\n}\n.componentNotifications .notificationElement .content {\n  margin: 0 2%;\n  position: relative;\n  flex: 0 80%;\n  display: flex;\n  flex-flow: row wrap;\n  align-items: center;\n  justify-content: flex-start;\n  text-align: left;\n  font-size: 1.6rem;\n  font-weight: 600;\n}\n.componentNotifications .notificationElement .content .mainText {\n  display: inline;\n  flex: 1 100%;\n  flex-flow: row wrap;\n  align-items: center;\n  justify-content: flex-start;\n  text-align: left;\n}\n.componentNotifications .notificationElement .content .mainText .author {\n  margin: 0 1%;\n  font-size: 2rem;\n  cursor: pointer;\n}\n.componentNotifications .notificationElement .content .mainText .author:hover {\n  color: hsl(219, 85%, 26%);\n}\n.componentNotifications .notificationElement .content .mainText .reaction {\n  font-size: 1.7rem;\n  text-align: left;\n  margin: 0;\n  color: hsl(219, 12%, 42%);\n}\n.componentNotifications .notificationElement .content .mainText .postTitle {\n  margin: 0;\n  color: hsl(224, 21%, 14%);\n  font-weight: 600;\n  cursor: pointer;\n}\n.componentNotifications .notificationElement .content .mainText .postTitle:hover {\n  color: hsl(219, 85%, 26%);\n  font-weight: 700;\n}\n.componentNotifications .notificationElement .content .mainText .group {\n  color: hsl(219, 85%, 26%);\n  margin: 0 1% 0 0;\n  cursor: pointer;\n}\n.componentNotifications .notificationElement .content .mainText .commentedPicture {\n  position: absolute;\n  right: 2%;\n  cursor: pointer;\n}\n.componentNotifications .notificationElement .content .mainText .notRead {\n  display: inline-flex;\n  padding: 5px;\n  border-radius: 10px;\n  background-color: hsl(1, 90%, 64%);\n}\n.componentNotifications .notificationElement .content .message {\n  margin: 2%;\n  padding: 2%;\n  flex: 1 100%;\n  color: hsl(219, 12%, 42%);\n  text-align: left;\n  border: 1px solid hsl(219, 12%, 42%);\n  border-radius: 10px;\n  cursor: pointer;\n}\n.componentNotifications .notificationElement .content .message:hover {\n  background-color: hsl(211, 68%, 94%);\n}\n.componentNotifications .notificationElement .content .data {\n  margin: 0 1%;\n  flex: 1 100%;\n  text-align: start;\n  color: hsl(219, 14%, 63%);\n}\n\n@media all and (max-width: 680px) {\n  .componentNotifications .notificationElement .avatarImg {\n    flex: 0 20%;\n    width: 50%;\n    height: auto;\n  }\n  .componentNotifications .notificationElement .content {\n    margin: 0 2% 0 3%;\n    display: flex;\n    flex-flow: row wrap;\n    flex: 0 70%;\n    justify-content: flex-start;\n    font-size: 1.4rem;\n    text-align: left;\n  }\n  .componentNotifications .notificationElement .content .mainText .author {\n    margin: 0 1%;\n    font-size: 1.7rem;\n  }\n  .componentNotifications .notificationElement .content .mainText .reaction {\n    font-size: 1.5rem;\n  }\n  .componentNotifications .notificationElement .content .mainText .notRead {\n    order: 5;\n    padding: 1%;\n    flex: 0 0.25%;\n    border-radius: 10px;\n    background-color: hsl(1, 90%, 64%);\n  }\n  .componentNotifications .notificationElement .content .mainText .commentedPicture {\n    position: static;\n    float: right;\n  }\n}\n@media all and (max-width: 480px) {\n  .componentNotifications .notificationElement .content {\n    font-size: 1.2rem;\n  }\n  .componentNotifications .notificationElement .content .mainText .author {\n    font-size: 1.5rem;\n  }\n  .componentNotifications .notificationElement .content .mainText .reaction {\n    font-size: 1.3rem;\n  }\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@font-face {\n  font-family: \"ExtraBold\";\n  src: url(\"/assets/fonts/static/PlusJakartaSans-ExtraBold.ttf\") format(\"truetype\");\n}\n@font-face {\n  font-family: \"Medium\";\n  src: url(\"/assets/fonts/static/PlusJakartaSans-Medium.ttf\") format(\"truetype\");\n}\n@font-face {\n  font-family: \"VariableFont\";\n  src: url(\"/assets/fonts/PlusJakartaSans-VariableFont_wght.ttf\") format(\"truetype\");\n}\n.App {\n  text-align: center;\n}\n\n.componentNotifications {\n  margin: 2%;\n}\n.componentNotifications .notificationElement {\n  margin: 2%;\n  padding: 2%;\n  background-color: hsl(0, 0%, 100%);\n  display: flex;\n  flex-flow: row wrap;\n  align-items: center;\n  justify-content: space-between;\n}\n.componentNotifications .notificationElement .notification {\n  display: flex;\n  flex: 0 85%;\n  align-items: flex-start;\n  justify-content: flex-start;\n}\n.componentNotifications .notificationElement .notification .avatarImg {\n  flex: 0 10%;\n}\n.componentNotifications .notificationElement .notification .content {\n  margin: 0 2%;\n  position: relative;\n  flex: 0 80%;\n  display: flex;\n  flex-flow: row wrap;\n  align-items: center;\n  justify-content: flex-start;\n  text-align: left;\n  font-size: 1.6rem;\n  font-weight: 600;\n}\n.componentNotifications .notificationElement .notification .content .mainText {\n  display: inline;\n  flex: 1 100%;\n  flex-flow: row wrap;\n  align-items: center;\n  justify-content: flex-start;\n  text-align: left;\n}\n.componentNotifications .notificationElement .notification .content .mainText .author {\n  margin: 0 1%;\n  font-size: 2rem;\n  cursor: pointer;\n}\n.componentNotifications .notificationElement .notification .content .mainText .author:hover {\n  color: hsl(219, 85%, 26%);\n}\n.componentNotifications .notificationElement .notification .content .mainText .reaction {\n  font-size: 1.7rem;\n  text-align: left;\n  margin: 0;\n  color: hsl(219, 12%, 42%);\n}\n.componentNotifications .notificationElement .notification .content .mainText .postTitle {\n  margin: 0;\n  color: hsl(224, 21%, 14%);\n  font-weight: 600;\n  cursor: pointer;\n}\n.componentNotifications .notificationElement .notification .content .mainText .postTitle:hover {\n  color: hsl(219, 85%, 26%);\n  font-weight: 700;\n}\n.componentNotifications .notificationElement .notification .content .mainText .group {\n  color: hsl(219, 85%, 26%);\n  margin: 0 1% 0 0;\n  cursor: pointer;\n}\n.componentNotifications .notificationElement .notification .content .mainText .commentedPicture {\n  position: absolute;\n  right: 2%;\n  cursor: pointer;\n}\n.componentNotifications .notificationElement .notification .content .mainText .notRead {\n  display: inline-flex;\n  padding: 5px;\n  border-radius: 10px;\n  background-color: hsl(1, 90%, 64%);\n}\n.componentNotifications .notificationElement .notification .content .message {\n  margin: 2%;\n  padding: 2%;\n  flex: 1 100%;\n  color: hsl(219, 12%, 42%);\n  text-align: left;\n  border: 1px solid hsl(219, 12%, 42%);\n  border-radius: 10px;\n  cursor: pointer;\n}\n.componentNotifications .notificationElement .notification .content .message:hover {\n  background-color: hsl(211, 68%, 94%);\n}\n.componentNotifications .notificationElement .notification .content .data {\n  margin: 0 1%;\n  flex: 1 100%;\n  text-align: start;\n  color: hsl(219, 14%, 63%);\n}\n.componentNotifications .notificationElement button {\n  padding: 1% 2%;\n  background-color: rgb(244, 100, 100);\n  color: white;\n  border: 0;\n  border-radius: 5px;\n  cursor: pointer;\n}\n.componentNotifications .notificationElement button:hover {\n  opacity: 0.8;\n}\n\n@media all and (max-width: 680px) {\n  .componentNotifications .notificationElement .avatarImg {\n    flex: 0 20%;\n    width: 50%;\n    height: auto;\n  }\n  .componentNotifications .notificationElement .content {\n    margin: 0 2% 0 3%;\n    display: flex;\n    flex-flow: row wrap;\n    flex: 0 70%;\n    justify-content: flex-start;\n    font-size: 1.4rem;\n    text-align: left;\n  }\n  .componentNotifications .notificationElement .content .mainText .author {\n    margin: 0 1%;\n    font-size: 1.7rem;\n  }\n  .componentNotifications .notificationElement .content .mainText .reaction {\n    font-size: 1.5rem;\n  }\n  .componentNotifications .notificationElement .content .mainText .notRead {\n    order: 5;\n    padding: 1%;\n    flex: 0 0.25%;\n    border-radius: 10px;\n    background-color: hsl(1, 90%, 64%);\n  }\n  .componentNotifications .notificationElement .content .mainText .commentedPicture {\n    position: static;\n    float: right;\n  }\n}\n@media all and (max-width: 480px) {\n  .componentNotifications .notificationElement .content {\n    font-size: 1.2rem;\n  }\n  .componentNotifications .notificationElement .content .mainText .author {\n    font-size: 1.5rem;\n  }\n  .componentNotifications .notificationElement .content .mainText .reaction {\n    font-size: 1.3rem;\n  }\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

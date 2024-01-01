@@ -9,10 +9,16 @@
         background-color: $White;
         display: flex;
         flex-flow: row wrap;
-        align-items: flex-start;
-        justify-content: flex-start;
+        align-items: center;
+        justify-content:space-between;
 
-       .avatarImg{
+        .notification{
+            display: flex;
+            flex: 0 85%;
+            align-items:flex-start;
+            justify-content:flex-start;
+
+            .avatarImg{
         flex: 0 10%;
        }
 
@@ -109,6 +115,21 @@
             text-align: start;
             color: $Grayish-blue;
         }
+        }
+
+       
+    }
+    button{
+        padding: 1% 2%;
+        background-color: rgb(244, 100, 100);
+        color: white;
+        border: 0;
+        border-radius: 5px;
+        cursor: pointer;
+
+    }
+    button:hover{
+        opacity: 0.8;
     }
 }
 

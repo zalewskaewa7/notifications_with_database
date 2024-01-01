@@ -103,8 +103,10 @@ class NotificationsController extends Controller
      * @param  \App\Models\Notifications  $notifications
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Notifications $notifications)
+    public function destroy(Notifications $notifications, $id)
     {
-        //
+        $data = Notifications::findOrFail($id);
+        $data -> delete();
+        return Notifications::latest()->get();
     }
 }

@@ -18,18 +18,18 @@ function Index() {
       setShowFormAddNotification(!showFormAddNotification);
     }
   
-    function showNewDataBase(){
-      setNewData(true);
-  
+    function newDataFalse(){
+      setNewData(false);
     }
+    
     
     return (
       <div className="Index">
         { showFormAddNotification ? <AddNotification  showForm={showForm} closeForm={closeForm}/> : ""}
-          <Header showForm={showForm} newData={newData}/>
+          <Header showForm={showForm} newData={newData} newDataFalse={newDataFalse}/>
         
         <main>
-          <Notification newData={newData} showNewDataBase={showNewDataBase}/> 
+          <Notification newData={newData}/> 
   
         </main>
       </div>
