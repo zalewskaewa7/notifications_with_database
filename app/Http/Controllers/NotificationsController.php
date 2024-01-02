@@ -91,8 +91,6 @@ class NotificationsController extends Controller
     public function update(Request $request, Notifications $notifications, $id)
     {
         $data = Notifications::find($id);
-    // $data ->email = $request('ifRead');
-    // $data -> message = $request('message');
     $data -> ifRead = true;
     $data ->save();
     }
@@ -108,5 +106,6 @@ class NotificationsController extends Controller
         $data = Notifications::findOrFail($id);
         $data -> delete();
         return Notifications::latest()->get();
+
     }
 }

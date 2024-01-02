@@ -10,7 +10,8 @@ class Notification extends React.Component {
         this.state = {
             datas: [],
         }
-       
+        this.newDataTrue = this.props.newDataTrue.bind(this);
+
     }
     
     componentDidMount() {
@@ -33,14 +34,12 @@ class Notification extends React.Component {
         }
         
     }
-    deleteNotification(){
-        let data = new FormData();
-        data.append("message", e);
-        data.append("filesArray", this.state.arrayFileNames);
-        data.append("_method", "POST");
-        axios.post("/api/delete/" + e.id, data).then((response) => {
+    deleteNotification(e){
+        
+        axios.post("/api/delete/" + e).then((response) => {
             const arrayDB = response.data;
-            return this.setState({ datas: arrayDB });
+            this.setState({ datas: arrayDB });
+            this.newDataTrue();
         });
     }
     
@@ -50,6 +49,7 @@ class Notification extends React.Component {
         
         {
         this.state.datas.map((item, index) =>{
+            
             return(
                 <div className="notificationElement"  style={{backgroundColor: item.ifRead ? "" :  "hsl(210, 60%, 98%)"}} key={index}>
                     <div className="notification">
@@ -75,7 +75,7 @@ class Notification extends React.Component {
                             <div className={item.message ? "message" : ""}>{item.message}</div>
                         </div>
                     </div>
-                    <button onClick={() => this.deleteNotification()}>Delete</button>
+                    <button onClick={() => this.deleteNotification(item.id)}>Delete</button>
                 </div>
             )
         }

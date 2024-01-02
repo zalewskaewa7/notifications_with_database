@@ -21,6 +21,9 @@ function Index() {
     function newDataFalse(){
       setNewData(false);
     }
+    function newDataTrue(){
+      setNewData(true);
+    }
     
     
     return (
@@ -29,7 +32,7 @@ function Index() {
           <Header showForm={showForm} newData={newData} newDataFalse={newDataFalse}/>
         
         <main>
-          <Notification newData={newData}/> 
+          <Notification newData={newData} newDataTrue={newDataTrue}/> 
   
         </main>
       </div>

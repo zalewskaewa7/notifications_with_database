@@ -32,6 +32,7 @@ class Header extends React.Component {
   componentDidUpdate(){
     if(this.props.newData){
       axios.get("/api/notifications").then((response) => {
+        this.setState({ notReaded: 0});
         let notReadedNote = 0;
         let notReadedIndexNote =[];
         response.data.map((element, index) => 

@@ -2417,6 +2417,9 @@ var Header = /*#__PURE__*/function (_React$Component) {
       var _this3 = this;
       if (this.props.newData) {
         axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/notifications").then(function (response) {
+          _this3.setState({
+            notReaded: 0
+          });
           var notReadedNote = 0;
           var notReadedIndexNote = [];
           response.data.map(function (element, index) {
@@ -2518,6 +2521,9 @@ function Index() {
   function newDataFalse() {
     setNewData(false);
   }
+  function newDataTrue() {
+    setNewData(true);
+  }
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "Index"
   }, showFormAddNotification ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_AddNotification__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -2528,7 +2534,8 @@ function Index() {
     newData: newData,
     newDataFalse: newDataFalse
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("main", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Notification__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    newData: newData
+    newData: newData,
+    newDataTrue: newDataTrue
   })));
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Index);
@@ -2579,6 +2586,7 @@ var Notification = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       datas: []
     };
+    _this.newDataTrue = _this.props.newDataTrue.bind(_assertThisInitialized(_this));
     return _this;
   }
   _createClass(Notification, [{
@@ -2609,17 +2617,14 @@ var Notification = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "deleteNotification",
-    value: function deleteNotification() {
+    value: function deleteNotification(e) {
       var _this4 = this;
-      var data = new FormData();
-      data.append("message", e);
-      data.append("filesArray", this.state.arrayFileNames);
-      data.append("_method", "POST");
-      axios__WEBPACK_IMPORTED_MODULE_3___default().post("/api/delete/" + e.id, data).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_3___default().post("/api/delete/" + e).then(function (response) {
         var arrayDB = response.data;
-        return _this4.setState({
+        _this4.setState({
           datas: arrayDB
         });
+        _this4.newDataTrue();
       });
     }
   }, {
@@ -2665,7 +2670,7 @@ var Notification = /*#__PURE__*/function (_React$Component) {
           className: item.message ? "message" : ""
         }, item.message))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
           onClick: function onClick() {
-            return _this5.deleteNotification();
+            return _this5.deleteNotification(item.id);
           }
         }, "Delete"));
       }));
